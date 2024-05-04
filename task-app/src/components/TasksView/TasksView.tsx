@@ -13,9 +13,15 @@ export const TasksView: React.FC = () => {
   const [updateTask] = useApiMutation(BackendEndpoint.UpdateTask);
 
   // state to store selected status for each task, whenever a state changes the component re-renders
-  const [selectedStatus, setSelectedStatus] = useState<{ [taskId: string]: TaskStatus }>({});
-  const [selectedTitle, setSelectedTitle] = useState<{ [taskId: string]: string }>({});
-  const [selectedPriority, setSelectedPriority] = useState<{ [taskId: string]: TaskPriority }>({});
+  const [selectedStatus, setSelectedStatus] = useState<{
+    [taskId: string]: TaskStatus;
+  }>({});
+  const [selectedTitle, setSelectedTitle] = useState<{
+    [taskId: string]: string;
+  }>({});
+  const [selectedPriority, setSelectedPriority] = useState<{
+    [taskId: string]: TaskPriority;
+  }>({});
 
   // function to handle task updates
   const handleTaskUpdate = async (taskId: string, updates: Partial<Task>) => {
@@ -56,7 +62,7 @@ export const TasksView: React.FC = () => {
 
   const tasksByStatus: { [status: string]: Task[] } = {};
   if (data) {
-    data.forEach(task => {
+    data.forEach((task) => {
       if (!tasksByStatus[task.status]) {
         tasksByStatus[task.status] = [];
       }
@@ -64,10 +70,10 @@ export const TasksView: React.FC = () => {
     });
   }
 
-  console.log("Data:", data);
-  console.log("Loading:", loading);
-  console.log("Error:", error);
-  console.log("Refetch:", refetch);
+  console.log('Data:', data);
+  console.log('Loading:', loading);
+  console.log('Error:', error);
+  console.log('Refetch:', refetch);
 
   return (
     <div
@@ -83,29 +89,67 @@ export const TasksView: React.FC = () => {
       {Object.entries(tasksByStatus).map(([status, tasks]) => (
         <div key={status} style={{ flex: '0 0 auto', maxWidth: '40%' }}>
           <h3>{formatStatus(status)}</h3> {/* Updated status label */}
-          {tasks.map(task => (
-            <div key={task.id} style={{ border: '1px solid #ccc', padding: '0.5em', marginBottom: '0.5em' }}>
+          {tasks.map((task) => (
+            <div
+              key={task.id}
+              style={{
+                border: '1px solid #ccc',
+                padding: '0.5em',
+                marginBottom: '0.5em',
+              }}
+            >
               <p style={{ marginBottom: '0.2em' }}>ID: {task.id}</p>
               <p style={{ marginBottom: '0.2em' }}>Title: {task.title}</p>
-              <p style={{ marginBottom: '0.2em' }}>Description: {task.description}</p>
+              <p style={{ marginBottom: '0.2em' }}>
+                Description: {task.description}
+              </p>
               <p style={{ marginBottom: '0.2em' }}>Priority: {task.priority}</p>
-              <p style={{ marginBottom: '0.2em' }}>Assigned Users: {task.assignedUsers && task.assignedUsers.length > 0 ? task.assignedUsers.join(', ') : 'None'}</p>
-              <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5em', justifyContent: 'space-between' }}>
+              <p style={{ marginBottom: '0.2em' }}>
+                Assigned Users:{' '}
+                {task.assignedUsers && task.assignedUsers.length > 0
+                  ? task.assignedUsers.join(', ')
+                  : 'None'}
+              </p>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  marginBottom: '0.5em',
+                  justifyContent: 'space-between',
+                }}
+              >
                 <input
                   type="text"
                   value={selectedTitle[task.id] || task.title}
-                  onChange={e => setSelectedTitle({ ...selectedTitle, [task.id]: e.target.value })}
+                  onChange={(e) =>
+                    setSelectedTitle({
+                      ...selectedTitle,
+                      [task.id]: e.target.value,
+                    })
+                  }
                 />
                 <button onClick={() => updateTaskTitle(task.id)}>
                   Update Title
                 </button>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5em', justifyContent: 'space-between' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  marginBottom: '0.5em',
+                  justifyContent: 'space-between',
+                }}
+              >
                 <select
                   value={selectedStatus[task.id] || task.status}
-                  onChange={e => setSelectedStatus({ ...selectedStatus, [task.id]: e.target.value as TaskStatus })}
+                  onChange={(e) =>
+                    setSelectedStatus({
+                      ...selectedStatus,
+                      [task.id]: e.target.value as TaskStatus,
+                    })
+                  }
                 >
-                  {Object.values(TaskStatus).map(status => (
+                  {Object.values(TaskStatus).map((status) => (
                     <option key={status} value={status}>
                       {status.replace(/_/g, ' ')}
                     </option>
@@ -115,12 +159,24 @@ export const TasksView: React.FC = () => {
                   Update Status
                 </button>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5em', justifyContent: 'space-between' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  marginBottom: '0.5em',
+                  justifyContent: 'space-between',
+                }}
+              >
                 <select
                   value={selectedPriority[task.id] || task.priority}
-                  onChange={e => setSelectedPriority({ ...selectedPriority, [task.id]: e.target.value as TaskPriority })}
+                  onChange={(e) =>
+                    setSelectedPriority({
+                      ...selectedPriority,
+                      [task.id]: e.target.value as TaskPriority,
+                    })
+                  }
                 >
-                  {Object.values(TaskPriority).map(priority => (
+                  {Object.values(TaskPriority).map((priority) => (
                     <option key={priority} value={priority}>
                       {priority.replace(/_/g, ' ')}
                     </option>
@@ -141,11 +197,16 @@ export const TasksView: React.FC = () => {
 // helper functions go outside
 const formatStatus = (status: string): string => {
   // Example: Convert "TO_DO" to "To Do"
-  const words = status.replace(/_/g, ' ').replace(/\b\w/g, firstChar => firstChar.toUpperCase()).split(" ");
+  const words = status
+    .replace(/_/g, ' ')
+    .replace(/\b\w/g, (firstChar) => firstChar.toUpperCase())
+    .split(' ');
   for (let i = 0; i < words.length; i++) {
     words[i] = words[i][0].toUpperCase() + words[i].substr(1);
   }
-  return words.map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ");
+  return words
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ');
 };
 
 // copied from models.ts
