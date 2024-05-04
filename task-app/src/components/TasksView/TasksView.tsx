@@ -91,6 +91,16 @@ export const TasksView: React.FC = () => {
               <p style={{ marginBottom: '0.2em' }}>Priority: {task.priority}</p>
               <p style={{ marginBottom: '0.2em' }}>Assigned Users: {task.assignedUsers && task.assignedUsers.length > 0 ? task.assignedUsers.join(', ') : 'None'}</p>
               <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5em', justifyContent: 'space-between' }}>
+                <input
+                  type="text"
+                  value={selectedTitle[task.id] || task.title}
+                  onChange={e => setSelectedTitle({ ...selectedTitle, [task.id]: e.target.value })}
+                />
+                <button onClick={() => updateTaskTitle(task.id)}>
+                  Update Title
+                </button>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5em', justifyContent: 'space-between' }}>
                 <select
                   value={selectedStatus[task.id] || task.status}
                   onChange={e => setSelectedStatus({ ...selectedStatus, [task.id]: e.target.value as TaskStatus })}
@@ -103,16 +113,6 @@ export const TasksView: React.FC = () => {
                 </select>
                 <button onClick={() => updateTaskStatus(task.id)}>
                   Update Status
-                </button>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5em', justifyContent: 'space-between' }}>
-                <input
-                  type="text"
-                  value={selectedTitle[task.id] || task.title}
-                  onChange={e => setSelectedTitle({ ...selectedTitle, [task.id]: e.target.value })}
-                />
-                <button onClick={() => updateTaskTitle(task.id)}>
-                  Update Title
                 </button>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5em', justifyContent: 'space-between' }}>
