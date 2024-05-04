@@ -30,13 +30,13 @@ export const TasksView: React.FC = () => {
     >
       {/* your code here! */}
       {data && data.map(user => (
-        <div key={user.id} style={{ border: '1px solid #ccc', padding: '1em' }}>
-          <p>ID: {user.id}</p>
-          <p>Title: {user.title}</p>
-          <p>Description: {user.description}</p>
-          <p>Status: {user.status}</p>
-          <p>Priority: {user.priority}</p>
-          <p>Assigned Users: {user.assignedUsers}</p> {/* This will show as an error due to assignedUsers being empty sometimes but it's fine */}
+        <div key={user.id} style={{ border: '1px solid #ccc', padding: '0.5em', maxWidth: '25%' }}>
+          <p style={{ marginBottom: '0.2em' }}>ID: {user.id}</p>
+          <p style={{ marginBottom: '0.2em' }}>Title: {user.title}</p>
+          <p style={{ marginBottom: '0.2em' }}>Description: {user.description}</p>
+          <p style={{ marginBottom: '0.2em' }}>Status: {user.status}</p>
+          <p style={{ marginBottom: '0.2em' }}>Priority: {user.priority}</p>
+          <p style={{ marginBottom: '0.2em' }}>Assigned Users: {user.assignedUsers}</p> {/* This will show as an error due to assignedUsers being empty sometimes but it's fine */}
         </div>
       ))}
       {/* Displaying data */}

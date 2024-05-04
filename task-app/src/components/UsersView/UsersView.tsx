@@ -30,12 +30,12 @@ export const UsersView: React.FC = () => {
     >
       {/* your code here! */}
       {data && data.map(user => (
-        <div key={user.id} style={{ border: '1px solid #ccc', padding: '1em' }}>
-          <p>ID: {user.id}</p>
-          <p>Name: {user.firstName} {user.lastName}</p>
-          <p>Username: {user.username}</p>
-          <p>Profile Rank: {user.profileRank}</p>
-          {user.profilePictureUrl && <img src={user.profilePictureUrl} alt="Profile" style={{ maxWidth: '100px', maxHeight: '100px' }} />}
+        <div key={user.id} style={{ border: '1px solid #ccc', padding: '0.5em', maxWidth: '25%' }}>
+          <p style={{ marginBottom: '0.2em' }}>ID: {user.id}</p>
+          <p style={{ marginBottom: '0.2em' }}>Name: {user.firstName} {user.lastName}</p>
+          <p style={{ marginBottom: '0.2em' }}>Username: {user.username}</p>
+          <p style={{ marginBottom: '0.2em' }}>Profile Rank: {user.profileRank}</p>
+          {user.profilePictureUrl && <img src={user.profilePictureUrl} alt="Profile" style={{ maxWidth: '75px', maxHeight: '75px' }} />}
         </div>
       ))}
       {/* Displaying data */}
