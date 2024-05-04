@@ -30,30 +30,30 @@ Important notes:
 ### File Structure
 
 - New components and React code should be added to new or existing files in `src/components`
-    - `TasksView.tsx` and `UsersView.tsx` are already defined, but feel free to define more components and files here as
-      part of your changes
-    - `useApiQuery` and `useApiMutation` are helper hooks you can use to access the mocked API. Types are preserved here
-      automatically when you specify the endpoint, so you should not need to specify types manually
+  - `TasksView.tsx` and `UsersView.tsx` are already defined, but feel free to define more components and files here as
+    part of your changes
+  - `useApiQuery` and `useApiMutation` are helper hooks you can use to access the mocked API. Types are preserved here
+    automatically when you specify the endpoint, so you should not need to specify types manually
 - All supporting files are located in the `src/support` folder. These should not be edited.
-    - `src/support/api/api-schema.ts` defines the list of mocked `BackendEndpoint` that you can call along with the
-      props and return values `BackendApiSchema`
-    - `src/support/api/hooks.ts` defines the hooks for the mocked API
-    - `src/support/api/models.ts` defines the model interfaces, and which fields are present on each model
+  - `src/support/api/api-schema.ts` defines the list of mocked `BackendEndpoint` that you can call along with the
+    props and return values `BackendApiSchema`
+  - `src/support/api/hooks.ts` defines the hooks for the mocked API
+  - `src/support/api/models.ts` defines the model interfaces, and which fields are present on each model
 
 ### Requirements
 
 There are a few things that the app is required to do before you submit your solution:
 
 - The app must display the tasks saved in the system. At a minimum, the task display must show each task's:
-    - ID
-    - title
-    - assignees
-    - priority
-    - status
+  - ID
+  - title
+  - assignees
+  - priority
+  - status
 - The app must allow the user to change the following task properties via the API and update the UI accordingly:
-    - title
-    - status
-    - priority
+  - title
+  - status
+  - priority
 - The app must display each status as a separate column, with matching tasks in each column. For example, all
   tasks marked with the `To Do` status should be in the `To Do` column
 
@@ -66,16 +66,16 @@ at.
 - The task display allows you to click on each task and open a detailed view of that task, which allows you to see and
   change all properties of the task, including assignees
 - The app allows the user to view create, update and delete users on the Users page
-    - firstName
-    - lastName
-    - username
+  - firstName
+  - lastName
+  - username
 - The task display supports drag-and-drop between status columns to update the status
 - The task display supports filtering the task view by assignee(s)
 
 ## Grading Criteria
 
 | Criteria                      | Below Expectations                                                                                                    | Meets Expectation                                          | Exceeds Expectations                                                                                                                         |
-|-------------------------------|-----------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| ----------------------------- | --------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | Completeness                  | Basic functionality does not work, and/or has many bugs (e.g. new DOM is created on every invocation).                | Implements the basic functionality without bugs.           | Implements the basic functionality and at least one of the bonus challenges.                                                                 |
 | UX                            | The app is difficult to understand and use. Glaring UI problems with uneven spacing, typos, low contrast colors, etc. | UI is familiar to users of other software and easy to use. | Implements an intuitive UI that's even better than the examples, or completes at least one of the bonus UI challenges, or is WCAG accessible |
 | Readability & Maintainability | Inconsistent syntax (i.e. did not use a linter). Poor function/variable names.                                        | Used a linter. Easy to understand function/variable names. | Follows best practices for writing React components. Modularized code.                                                                       |

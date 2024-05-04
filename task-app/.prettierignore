@@ -1,0 +1,34 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+src/support
+
+task-app/.eslintrc.cjs
+task-app/.prettierrc
+task-app/README.md
+task-app/package.json
+task-app/vite.config.ts
+task-app/yarn.lock
+task-app/vite.config.ts
