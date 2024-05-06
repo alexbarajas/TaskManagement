@@ -4,7 +4,11 @@ interface NotFoundProps {
   // add any props you might need here
 }
 
-export const NotFound: React.FC<NotFoundProps> = ({ /* destructure props here if needed */ }) => {
+export const NotFound: React.FC<NotFoundProps> = (
+  {
+    /* destructure props here if needed */
+  },
+) => {
   // your component logic here if you have any
 
   return (

@@ -25,7 +25,9 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <ErrorBoundary> {/* Wrap the entire application with ErrorBoundary */}
+    <ErrorBoundary>
+      {' '}
+      {/* Wrap the entire application with ErrorBoundary */}
       <div
         style={{
           display: 'grid',
@@ -35,7 +37,7 @@ function App() {
           backgroundColor: 'rgba(0,0,0,.1)',
         }}
       >
-      <Sidebar />
+        <Sidebar />
         <RouterProvider router={router} />
       </div>
     </ErrorBoundary>

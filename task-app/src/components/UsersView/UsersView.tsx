@@ -8,18 +8,31 @@ export const UsersView: React.FC = () => {
     { props: { searchText: '' } },
   );
 
-  const [newUser, setNewUser] = useState<NewUser>({}); // State for new user input
+  const [newUser, setNewUser] = useState<User>({}); // State for new user input
   const [isCreating, setIsCreating] = useState(false); // State for tracking user creation process
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null); // State for tracking selected user
   const [isEditing, setIsEditing] = useState<string | null>(null); // State for tracking if user is being edited
 
   const [deleteUser] = useApiMutation(BackendEndpoint.DeleteUser);
   const [updateUser] = useApiMutation(BackendEndpoint.UpdateUser);
+  const [createUser] = useApiMutation(BackendEndpoint.CreateUser);
 
   const handleCreateUser = async () => {
-    // make API call to create user using newUser state
-    // update refetch after successful creation
-    setIsCreating(false);
+    try {
+      const createdUser = await createUser({
+        firstName: newUser.firstName || '',
+        lastName: newUser.lastName || '',
+        username: newUser.username || '',
+        profileRank: newUser.profileRank || 0,
+      });
+      if (createdUser) {
+        refetch();
+        setNewUser({ firstName: '', lastName: '', username: '' });
+        setIsCreating(false);
+      }
+    } catch (error) {
+      console.error('Error creating user:', error);
+    }
   };
 
   const handleDeleteUser = async (userId: string) => {
@@ -74,6 +87,7 @@ export const UsersView: React.FC = () => {
       {isCreating ? (
         <div>
           {/* form to create a new user */}
+          {/* don't need to add an input for ID because the API gets one randomly as seen in mock-backend.ts */}
           <input
             type="text"
             value={newUser.firstName || ''}
@@ -186,7 +200,7 @@ export const UsersView: React.FC = () => {
               borderRadius: '5px',
             }}
           >
-            <h2>Edit User</h2>
+            <h3>Update User</h3>
             <input
               type="text"
               value={newUser.firstName || ''}
@@ -211,7 +225,7 @@ export const UsersView: React.FC = () => {
               }
               placeholder="Username"
             />
-            <button onClick={handleSubmitEdit}>Save</button>
+            <button onClick={handleSubmitEdit}>Update</button>
             <button onClick={() => setIsEditing(null)}>Cancel</button>
           </div>
         </div>
@@ -222,17 +236,11 @@ export const UsersView: React.FC = () => {
 
 // need to update this so you can create new users
 interface User {
-  id: string;
-  firstName: string;
-  lastName: string;
-  username: string;
-  profilePictureUrl?: string;
-  /** the public level of the user (like stack overflow points/levels) */
-  profileRank: number;
-}
-
-interface NewUser {
+  id?: string;
   firstName?: string;
   lastName?: string;
   username?: string;
+  profilePictureUrl?: string;
+  /** the public level of the user (like stack overflow points/levels) */
+  profileRank?: number;
 }
