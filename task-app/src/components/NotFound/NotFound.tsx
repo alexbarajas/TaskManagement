@@ -4,13 +4,7 @@ interface NotFoundProps {
   // add any props you might need here
 }
 
-export const NotFound: React.FC<NotFoundProps> = (
-  {
-    /* destructure props here if needed */
-  },
-) => {
-  // your component logic here if you have any
-
+export const NotFound: React.FC<NotFoundProps> = () => {
   return (
     <div>
       <h1>404 Not Found 😢</h1>

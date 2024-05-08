@@ -34,7 +34,7 @@ function App() {
           gridTemplateColumns: '1fr 4fr',
           gap: '.5em',
           height: '100vh',
-          backgroundColor: 'rgba(0,0,0,.1)',
+          backgroundColor: 'rgba(180,180,180,.4)',
         }}
       >
         <Sidebar />

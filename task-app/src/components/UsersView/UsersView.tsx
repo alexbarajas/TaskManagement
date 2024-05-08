@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useApiQuery, useApiMutation } from '../../support/api/hooks.ts';
 import { BackendEndpoint } from '../../support/api/api-schema.ts';
+import '../../App.css';
 
 export const UsersView: React.FC = () => {
   const { data, loading, error, refetch } = useApiQuery(
@@ -8,10 +9,10 @@ export const UsersView: React.FC = () => {
     { props: { searchText: '' } },
   );
 
-  const [newUser, setNewUser] = useState<User>({}); // State for new user input
-  const [isCreating, setIsCreating] = useState(false); // State for tracking user creation process
-  const [selectedUserId, setSelectedUserId] = useState<string | null>(null); // State for tracking selected user
-  const [isEditing, setIsEditing] = useState<string | null>(null); // State for tracking if user is being edited
+  const [newUser, setNewUser] = useState<User>({});
+  const [isCreating, setIsCreating] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+  const [isEditing, setIsEditing] = useState<string | null>(null);
 
   const [deleteUser] = useApiMutation(BackendEndpoint.DeleteUser);
   const [updateUser] = useApiMutation(BackendEndpoint.UpdateUser);
@@ -83,7 +84,7 @@ export const UsersView: React.FC = () => {
         padding: '1em',
       }}
     >
-      <h3>Users:</h3>
+      <h1>Users:</h1>
       {isCreating ? (
         <div>
           {/* form to create a new user */}
@@ -116,7 +117,12 @@ export const UsersView: React.FC = () => {
           <button onClick={() => setIsCreating(false)}>Cancel</button>
         </div>
       ) : (
-        <button onClick={() => setIsCreating(true)}>Create New User</button>
+        <button
+          className="common-border-style"
+          onClick={() => setIsCreating(true)}
+        >
+          Create New User
+        </button>
       )}
       {loading ? (
         <p>The users are loading please wait...</p>
@@ -127,13 +133,9 @@ export const UsersView: React.FC = () => {
           {data &&
             data.map((user) => (
               <div
+                className="common-border-style"
+                style={{ maxWidth: '25%' }}
                 key={user.id}
-                style={{
-                  border: '1px solid #ccc',
-                  padding: '0.5em',
-                  maxWidth: '25%',
-                  marginBottom: '0.5em',
-                }}
               >
                 <p style={{ marginBottom: '0.2em' }}>ID: {user.id}</p>
                 <p style={{ marginBottom: '0.2em' }}>
@@ -180,26 +182,8 @@ export const UsersView: React.FC = () => {
       )}
       {/* modal for editing user */}
       {isEditing && (
-        <div
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <div
-            style={{
-              backgroundColor: 'white',
-              padding: '2em',
-              borderRadius: '5px',
-            }}
-          >
+        <div className="update-style">
+          <div className="update-box">
             <h3>Update User</h3>
             <input
               type="text"
@@ -234,7 +218,6 @@ export const UsersView: React.FC = () => {
   );
 };
 
-// need to update this so you can create new users
 interface User {
   id?: string;
   firstName?: string;

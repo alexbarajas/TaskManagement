@@ -2,6 +2,33 @@ body {
   margin: 0;
 }
 
+.common-border-style {
+  border: 2px solid;
+  border-color: rgba(0, 0, 0, 0.5);
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.update-style {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.update-box {
+  background-color: rgba(255, 255, 255);
+  margin: auto;
+  border: 2em solid;
+  border-color: white;
+  border-radius: 25px;
+}
+
 *:not(.fa, .fab, .fas) {
   font-family: sans-serif;
 }

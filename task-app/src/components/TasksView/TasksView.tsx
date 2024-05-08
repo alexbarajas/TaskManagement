@@ -9,11 +9,25 @@ export const TasksView: React.FC = () => {
     { props: { searchText: '' } },
   );
 
-  // mutation hook for updating tasks
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+  const [createTask] = useApiMutation(BackendEndpoint.CreateTask);
   const [updateTask] = useApiMutation(BackendEndpoint.UpdateTask);
 
-  // state to store selected task for update
-  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+  const handleCreateTask = async () => {
+    try {
+      const newTask = await createTask({
+        title: 'New Task Title',
+        description: 'New Task Description',
+        priority: TaskPriority.Low,
+        status: TaskStatus.ToDo,
+      });
+      if (newTask) {
+        refetch();
+      }
+    } catch (error) {
+      console.error('Error creating task:', error);
+    }
+  };
 
   // function to handle task updates
   const handleTaskUpdate = async (updatedTask: Task) => {
@@ -52,23 +66,34 @@ export const TasksView: React.FC = () => {
         padding: '1em',
       }}
     >
-      {Object.entries(tasksByStatus).map(([status, tasks]) => (
-        <div key={status} style={{ flex: '0 0 auto', maxWidth: '40%' }}>
-          <h3>{formatStatus(status)}</h3>
-          {tasks.map((task) => (
-            <div
-              key={task.id}
-              style={{
-                border: '1px solid #ccc',
-                padding: '0.5em',
-                marginBottom: '0.5em',
-              }}
-            >
-              <TaskItem task={task} setSelectedTask={setSelectedTask} />
+      <div>
+        <h1 style={{ display: 'inline' }}>Tasks:</h1>
+        <div>
+          <button
+            className="common-border-style"
+            onClick={handleCreateTask}
+            style={{ width: '100vw' }}
+          >
+            Create New Task
+          </button>
+        </div>
+        <div style={{ display: 'inline-flex', flexDirection: 'row' }}>
+          {Object.entries(tasksByStatus).map(([status, tasks]) => (
+            <div key={status} style={{ flex: '0 0 auto', maxWidth: '40%' }}>
+              <h3>{formatStatus(status)}</h3>
+              {tasks.map((task) => (
+                <div className="common-border-style" key={task.id}>
+                  <TaskItem
+                    task={task}
+                    setSelectedTask={setSelectedTask}
+                    handleTaskUpdate={handleTaskUpdate}
+                  />
+                </div>
+              ))}
             </div>
           ))}
         </div>
-      ))}
+      </div>
       {/* popup form for updating task */}
       {loading ? (
         <p>The tasks are loading please wait...</p>
@@ -76,26 +101,8 @@ export const TasksView: React.FC = () => {
         <p>Error: {error.message}</p>
       ) : (
         selectedTask && (
-          <div
-            style={{
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              backgroundColor: 'rgba(0, 0, 0, 0.5)',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <div
-              style={{
-                backgroundColor: '#fff',
-                padding: '2em',
-                borderRadius: '5px',
-              }}
-            >
+          <div className="update-style">
+            <div className="update-box">
               <TaskUpdateForm
                 task={selectedTask}
                 handleTaskUpdate={handleTaskUpdate}
@@ -112,6 +119,7 @@ export const TasksView: React.FC = () => {
 const TaskItem: React.FC<{
   task: Task;
   setSelectedTask: (task: Task | null) => void;
+  handleTaskUpdate: (updatedTask: Task) => Promise<void>;
 }> = ({ task, setSelectedTask }) => {
   return (
     <div>
