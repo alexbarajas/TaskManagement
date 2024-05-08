@@ -37,7 +37,7 @@ export const TasksView: React.FC = () => {
       // if the update is successful, refetch the tasks to get the latest data
       if (response) {
         refetch();
-        setSelectedTask(null); // Close the popup after update
+        setSelectedTask(null); // close the popup after update
       }
     } catch (error) {
       // handle error
